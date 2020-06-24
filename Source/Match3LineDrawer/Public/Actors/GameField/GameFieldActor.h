@@ -39,4 +39,7 @@ private:
 	const FVector CalculateElementPosition(int8 i, int8 j);
 
 	virtual void SetColourSet(FColorDefinition& ColorDefinition) override;
+
+	// Inherited via IGameFieldInterface
+	virtual TArray<class IGameFieldElementInterface*> GetGameFieldElements() override;
 };

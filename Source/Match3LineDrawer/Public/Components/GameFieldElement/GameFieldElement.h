@@ -23,7 +23,7 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	virtual void SetHighlight(bool IsHighlighted) override;
+	virtual void SetHighlight(bool IsHighlighted = false) override;
 	// OnEndMouseOver Event Listener
 	UFUNCTION()
 	void OnEndMouseOver(UPrimitiveComponent* TouchedComponent);
@@ -31,4 +31,5 @@ private:
 	// OnBeginMouseOver Event Listener
 	UFUNCTION()
 	void OnBeginMouseOver(UPrimitiveComponent* TouchedComponent);
+
 };

@@ -104,3 +104,15 @@ void AGameFieldActor::SetColourSet(FColorDefinition& ColorDefinition)
 	}
 }
 
+TArray<class IGameFieldElementInterface*> AGameFieldActor::GetGameFieldElements()
+{
+	TArray<class IGameFieldElementInterface*> Interfaces;
+
+	for (auto Element : GameFieldElements)
+	{
+		Interfaces.Add(Element);
+	}
+
+	return Interfaces;
+}
+

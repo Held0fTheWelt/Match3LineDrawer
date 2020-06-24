@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "GameFieldElementInterface.generated.h"
+#include "PlayerControllerInterface.generated.h"
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UGameFieldElementInterface : public UInterface
+class UPlayerControllerInterface : public UInterface
 {
 	GENERATED_BODY()
 };
@@ -16,10 +16,10 @@ class UGameFieldElementInterface : public UInterface
 /**
  * 
  */
-class MATCH3LINEDRAWER_API IGameFieldElementInterface
+class MATCH3LINEDRAWER_API IPlayerControllerInterface
 {
 	GENERATED_BODY()
 
 public:
-	virtual void SetHighlight(bool IsHighlighted = false) = 0;
+	virtual const bool GetMouseIsPressed() const = 0;
 };

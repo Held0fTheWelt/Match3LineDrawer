@@ -3,8 +3,10 @@
 
 #include "GameFieldElement.h"
 
+#include "Com/Communicator.h"
 #include "Engine/StaticMesh.h"
 #include "Materials/MaterialInterface.h"
+#include "..\..\..\Public\Components\GameFieldElement\GameFieldElement.h"
 
 void UGameFieldElement::BeginPlay()
 {
@@ -38,7 +40,14 @@ void UGameFieldElement::SetHighlight(bool IsHighlighted)
 
 void UGameFieldElement::OnEndMouseOver(UPrimitiveComponent* TouchedComponent)
 {
-	SetHighlight(false);
+	if (Communicator::IsMouseDown(GetWorld()))
+	{
+
+	}
+	else
+	{
+		SetHighlight();
+	}
 }
 
 void UGameFieldElement::OnBeginMouseOver(UPrimitiveComponent* TouchedComponent)

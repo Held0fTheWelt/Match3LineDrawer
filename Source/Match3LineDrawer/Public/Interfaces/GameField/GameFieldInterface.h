@@ -22,5 +22,6 @@ class MATCH3LINEDRAWER_API IGameFieldInterface
 	GENERATED_BODY()
 
 public:
-	virtual void SetColourSet(FColorDefinition& ColorDefinition) = 0;
+	virtual void SetColourSet(FColorDefinition& ColorDefinition) = 0;;
+	virtual TArray<class IGameFieldElementInterface*> GetGameFieldElements() = 0;
 };

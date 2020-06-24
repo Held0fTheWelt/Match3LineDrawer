@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "Interfaces/Controller/PlayerControllerInterface.h"
 #include "GamePlayerController.generated.h"
 
 UCLASS()
-class AGamePlayerController : public APlayerController
+class AGamePlayerController : public APlayerController, public IPlayerControllerInterface
 {
 	GENERATED_BODY()
 
@@ -23,5 +24,13 @@ protected:
 	virtual void SetupInputComponent() override;
 	// End PlayerController interface
 
-	
+	UFUNCTION()
+	void MousePressed();
+	UFUNCTION()
+	void MouseReleased();
+
+	UPROPERTY(VisibleAnywhere, Category = "Mouse")
+	bool bMouseIsPressed;
+
+	virtual const bool GetMouseIsPressed() const override;
 };
