@@ -57,14 +57,25 @@ void UGameFieldElement::OnBeginMouseOver(UPrimitiveComponent* TouchedComponent)
 	if (!Communicator::IsMouseDown(GetWorld()))
 	{
 		Communicator::SetCurrentColorIndex(GetWorld(), this);
+		SetHighlight(true);
 	}
-
-	SetHighlight(true);
+	else
+	{
+		if (Communicator::GetCurrentColorIndex(GetWorld()) != ElementInformation.ColorNumber)
+		{
+			Communicator::ResetAllElements(GetWorld());
+		}
+		else
+		{
+			Communicator::AddToComboList(GetWorld(), this);
+			SetHighlight(true);
+		}
+	}
 }
 
 int32 UGameFieldElement::GetColorNumber() const
 {
-	ElementInformation.ColorNumber;
+	return ElementInformation.ColorNumber;
 }
 
 void UGameFieldElement::SetColorInformation(int32 ColorNumber)

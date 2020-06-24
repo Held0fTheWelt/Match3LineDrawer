@@ -4,7 +4,8 @@
 
 #include "Com/Communicator.h"
 #include "Engine/World.h"
-
+#include "GameFramework/PlayerState.h"
+#include "Interfaces/States/PlayerStateInterface.h"
 
 AGamePlayerController::AGamePlayerController()
 {
@@ -33,13 +34,15 @@ void AGamePlayerController::SetupInputComponent()
 void AGamePlayerController::MousePressed()
 {
 	bMouseIsPressed = true;
+
+	Communicator::CountCurrentHighlight(GetWorld());
 }
 
 void AGamePlayerController::MouseReleased()
 {
 	bMouseIsPressed = false;
 
-	Communicator::ResetGameFieldComponents(GetWorld());
+	Communicator::ResetAllElements(GetWorld());
 
 	
 }
@@ -47,4 +50,9 @@ void AGamePlayerController::MouseReleased()
 const bool AGamePlayerController::GetMouseIsPressed() const
 {
 	return bMouseIsPressed;
+}
+
+void AGamePlayerController::ResetPlayerControllerValues()
+{
+	bMouseIsPressed = false;
 }

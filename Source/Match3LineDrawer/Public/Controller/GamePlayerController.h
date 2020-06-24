@@ -33,4 +33,7 @@ protected:
 	bool bMouseIsPressed;
 
 	virtual const bool GetMouseIsPressed() const override;
+
+	// Inherited via IPlayerControllerInterface
+	virtual void ResetPlayerControllerValues() override;
 };

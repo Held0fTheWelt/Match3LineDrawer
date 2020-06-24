@@ -20,16 +20,18 @@ public:
 	int32 MovesLeft;
 
 	UPROPERTY(VisibleAnywhere)
-	TArray<int32> Heap;
+	int32 HeapCount;
+
+	TArray<IGameFieldElementInterface*> Heap;
 
 	UPROPERTY(VisibleAnywhere)
 	int32 CurrentColorIndex;
 
-	IGameFieldElementInterface* ElementInterface;
+	IGameFieldElementInterface* CurrentElement;
 
 public:
-	int32 Pop();
-	void Push(int32 Value);
+	IGameFieldElementInterface* Pop();
+	void Push(IGameFieldElementInterface* Value);
 
 	void SetCurrentColorIndex(int32 Index);
 	int32  GetCurrentColorIndex() const;

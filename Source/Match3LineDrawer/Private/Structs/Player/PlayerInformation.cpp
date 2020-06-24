@@ -6,26 +6,28 @@ FPlayerInformation::FPlayerInformation()
 {
 	MovesLeft = 10;
 	Heap.Empty();
-	ElementInterface = nullptr;
+	CurrentElement = nullptr;
+	HeapCount = 0;
 }
 
-int32 FPlayerInformation::Pop()
+IGameFieldElementInterface* FPlayerInformation::Pop()
 {
 	if (Heap.Num() > 0)
 	{
-		int32 Value = -1;
-		Heap.HeapPop(Value,true);
+		IGameFieldElementInterface* Value = Heap.Pop(true);		
+		HeapCount--;
 		return Value;
 	}
 	else
 	{
-		return -1;
+		return nullptr;
 	}
 }
 
-void FPlayerInformation::Push(int32 Value)
+void FPlayerInformation::Push(IGameFieldElementInterface* Value)
 {
 	Heap.Push(Value);
+	HeapCount++;
 }
 
 void FPlayerInformation::SetCurrentColorIndex(int32 Index)
@@ -40,20 +42,20 @@ int32 FPlayerInformation::GetCurrentColorIndex() const
 
 void FPlayerInformation::SetInterface(IGameFieldElementInterface* Interface)
 {
-	ElementInterface = Interface;
+	CurrentElement = Interface;
 }
 
 void FPlayerInformation::RemoveInterface()
 {
-	ElementInterface = nullptr;
+	CurrentElement = nullptr;
 }
 
 IGameFieldElementInterface* FPlayerInformation::GetCurrentInterface()
 {
-	return ElementInterface;
+	return CurrentElement;
 }
 
 bool FPlayerInformation::HasCurrentInterface() const
 {
-	return !(ElementInterface == nullptr);
+	return !(CurrentElement == nullptr);
 }

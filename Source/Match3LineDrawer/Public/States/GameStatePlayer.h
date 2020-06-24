@@ -22,5 +22,16 @@ private:
 
 	// Inherited via IPlayerStateInterface
 	virtual int32 GetCurrentColorIndex() const override;
-	virtual void SetCurrentColorIndex(class IGameFieldElementInterface* ElementInterface);
+	virtual void SetCurrentColorIndex(class IGameFieldElementInterface* Interface);
+
+	// Inherited via IPlayerStateInterface
+	virtual void ResetValues() override;
+
+	// Inherited via IPlayerStateInterface
+	virtual void AddToList(IGameFieldElementInterface* Element) override;
+	virtual void PopList() override;
+
+	// Inherited via IPlayerStateInterface
+	virtual bool HasCurrentElementInterface() const override;
+	virtual IGameFieldElementInterface* GetCurrentElementInterface() override;
 };

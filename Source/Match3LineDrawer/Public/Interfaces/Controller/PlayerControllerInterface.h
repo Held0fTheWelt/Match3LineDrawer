@@ -22,4 +22,5 @@ class MATCH3LINEDRAWER_API IPlayerControllerInterface
 
 public:
 	virtual const bool GetMouseIsPressed() const = 0;
+	virtual void ResetPlayerControllerValues() = 0;
 };

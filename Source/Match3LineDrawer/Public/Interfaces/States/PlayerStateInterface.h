@@ -21,6 +21,11 @@ class MATCH3LINEDRAWER_API IPlayerStateInterface
 	GENERATED_BODY()
 			
 public:
-	virtual void SetCurrentColorIndex(class IGameFieldElementInterface* ElementInterface) = 0;
+	virtual void SetCurrentColorIndex(class IGameFieldElementInterface* Interface) = 0;
 	virtual int32 GetCurrentColorIndex() const = 0;
+	virtual void ResetValues() = 0;
+	virtual void AddToList(class IGameFieldElementInterface* Element) = 0;
+	virtual void PopList() = 0;
+	virtual bool HasCurrentElementInterface() const = 0;
+	virtual class IGameFieldElementInterface* GetCurrentElementInterface() = 0;
 };
