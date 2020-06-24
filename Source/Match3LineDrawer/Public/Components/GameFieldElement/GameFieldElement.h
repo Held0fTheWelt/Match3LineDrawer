@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/StaticMeshComponent.h"
 #include "Interfaces/GameFieldElement/GameFieldElementInterface.h"
+#include "Structs/ElementInformation/ElementInformation.h"
 #include "GameFieldElement.generated.h"
 
 /**
@@ -19,6 +20,9 @@ class MATCH3LINEDRAWER_API UGameFieldElement : public UStaticMeshComponent, publ
 public:
 	void SetNewMaterialInstance(class UMaterialInterface* MaterialInterface);
 
+	virtual void SetColorInformation(int32 ColorNumber) override;
+
+	void SetColorNumber(int32 ColorNumber);
 protected:
 	virtual void BeginPlay() override;
 
@@ -31,5 +35,10 @@ private:
 	// OnBeginMouseOver Event Listener
 	UFUNCTION()
 	void OnBeginMouseOver(UPrimitiveComponent* TouchedComponent);
+
+private:
+	UPROPERTY(VisibleAnywhere, Category = "Information")
+	FElementInformation ElementInformation;
+	
 
 };

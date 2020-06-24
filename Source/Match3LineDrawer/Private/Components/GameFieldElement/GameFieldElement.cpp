@@ -3,10 +3,12 @@
 
 #include "GameFieldElement.h"
 
+
 #include "Com/Communicator.h"
 #include "Engine/StaticMesh.h"
+#include "Interfaces/GameField/GameFieldInterface.h"
 #include "Materials/MaterialInterface.h"
-#include "..\..\..\Public\Components\GameFieldElement\GameFieldElement.h"
+
 
 void UGameFieldElement::BeginPlay()
 {
@@ -52,6 +54,34 @@ void UGameFieldElement::OnEndMouseOver(UPrimitiveComponent* TouchedComponent)
 
 void UGameFieldElement::OnBeginMouseOver(UPrimitiveComponent* TouchedComponent)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Some warning message"));
 	SetHighlight(true);
+}
+
+void UGameFieldElement::SetColorInformation(int32 ColorNumber)
+{
+	IGameFieldInterface* GameField = Cast<IGameFieldInterface>(GetOwner());
+
+	if (GameField == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Could not Cast Owner to GameFieldInterface! This shouldn't happen !"));
+		return;
+	}
+	else
+	{
+		UMaterialInterface* MaterialInterface = GameField->GetMaterialInterface(ColorNumber);
+
+		if (MaterialInterface != nullptr)
+		{
+			SetNewMaterialInstance(MaterialInterface);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Could not Get MaterialInterface from GameFieldInterface! This only leads to wrong index usage!"));
+		}
+	}
+}
+
+void UGameFieldElement::SetColorNumber(int32 ColorNumber)
+{
+	ElementInformation.SetColorNumber(ColorNumber);
 }

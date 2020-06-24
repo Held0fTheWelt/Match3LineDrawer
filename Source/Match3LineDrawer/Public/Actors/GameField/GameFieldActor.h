@@ -34,6 +34,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	UMaterialInterface* Material;
+	
+	UPROPERTY(VisibleAnywhere)
+	TArray<UMaterialInterface*> ColorMaterials;
 
 private:
 	const FVector CalculateElementPosition(int8 i, int8 j);
@@ -42,4 +45,7 @@ private:
 
 	// Inherited via IGameFieldInterface
 	virtual TArray<class IGameFieldElementInterface*> GetGameFieldElements() override;
+
+	// Inherited via IGameFieldInterface
+	virtual UMaterialInterface* GetMaterialInterface(int32 index) const override;
 };

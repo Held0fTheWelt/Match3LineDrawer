@@ -70,7 +70,7 @@ void AGameFieldActor::BeginPlay()
 
 const FVector AGameFieldActor::CalculateElementPosition(int8 i, int8 j)
 {
-	return FVector(i * 15,0,j * 17.5f + (i % 2 == 0 ? 0 : 8.75f));
+	return FVector(i * 15,0,j * 17.f + (i % 2 == 0 ? 0 : 8.75f));
 }
 
 void AGameFieldActor::SetColourSet(FColorDefinition& ColorDefinition)
@@ -81,8 +81,6 @@ void AGameFieldActor::SetColourSet(FColorDefinition& ColorDefinition)
 		return;
 	}
 
-	TArray<UMaterialInterface*> ColorMaterials;
-	
 	for (auto Color : ColorDefinition.Colors)
 	{
 		UMaterialInstanceDynamic* DynMaterial = UMaterialInstanceDynamic::Create(Material, this);
@@ -100,7 +98,9 @@ void AGameFieldActor::SetColourSet(FColorDefinition& ColorDefinition)
 
 	for (auto Element : GameFieldElements)
 	{
-		Element->SetNewMaterialInstance(ColorMaterials[FMath::RandRange(0, ColorMaterials.Num()-1)]);
+		int32 RandomInteger = FMath::RandRange(0, ColorMaterials.Num() - 1);
+		Element->SetColorNumber(RandomInteger);
+		Element->SetNewMaterialInstance(ColorMaterials[RandomInteger]);
 	}
 }
 
@@ -114,5 +114,18 @@ TArray<class IGameFieldElementInterface*> AGameFieldActor::GetGameFieldElements(
 	}
 
 	return Interfaces;
+}
+
+UMaterialInterface* AGameFieldActor::GetMaterialInterface(int32 index) const
+{
+	if (index >= ColorMaterials.Num())
+	{
+		return nullptr;
+	}
+	else
+	{
+		return ColorMaterials[index];
+	}
+
 }
 
