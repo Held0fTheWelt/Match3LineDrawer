@@ -29,9 +29,15 @@ private:
 
 	// Inherited via IPlayerStateInterface
 	virtual void AddToList(IGameFieldElementInterface* Element) override;
-	virtual void PopList() override;
+	virtual class IGameFieldElementInterface* PopList() override;
 
 	// Inherited via IPlayerStateInterface
 	virtual bool HasCurrentElementInterface() const override;
 	virtual IGameFieldElementInterface* GetCurrentElementInterface() override;
+
+	// Inherited via IPlayerStateInterface
+	virtual bool IsElementValidNew(IGameFieldElementInterface* NewElement) const override;
+
+	// Inherited via IPlayerStateInterface
+	virtual bool IsElementPrevious(IGameFieldElementInterface* NewElement) const override;
 };

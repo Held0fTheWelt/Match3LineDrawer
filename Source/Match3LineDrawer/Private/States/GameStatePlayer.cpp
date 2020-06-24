@@ -19,6 +19,7 @@ void AGameStatePlayer::SetCurrentColorIndex(IGameFieldElementInterface* Interfac
 void AGameStatePlayer::ResetValues()
 {
 	CurrentStatus.CurrentColorIndex = -1;
+	CurrentStatus.HeapCount = 0;
 	CurrentStatus.CurrentElement = nullptr;
 	CurrentStatus.Heap.Empty();
 }
@@ -28,9 +29,9 @@ void AGameStatePlayer::AddToList(IGameFieldElementInterface* Element)
 	CurrentStatus.Push(Element);
 }
 
-void AGameStatePlayer::PopList()
+IGameFieldElementInterface* AGameStatePlayer::PopList()
 {
-	CurrentStatus.Pop();
+	return CurrentStatus.Pop();
 }
 
 bool AGameStatePlayer::HasCurrentElementInterface() const
@@ -41,4 +42,27 @@ bool AGameStatePlayer::HasCurrentElementInterface() const
 IGameFieldElementInterface* AGameStatePlayer::GetCurrentElementInterface()
 {
 	return CurrentStatus.CurrentElement;
+}
+
+bool AGameStatePlayer::IsElementValidNew(IGameFieldElementInterface* NewElement) const
+{
+	for (auto Element : CurrentStatus.Heap)
+	{
+		if (Element == NewElement)
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool AGameStatePlayer::IsElementPrevious(IGameFieldElementInterface* NewElement) const
+{
+	if (CurrentStatus.HeapCount < 2)
+		return false;
+	if (CurrentStatus.Heap[CurrentStatus.Heap.Num() -2] == NewElement)
+		return true;
+
+	return false;
 }

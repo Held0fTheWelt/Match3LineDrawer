@@ -48,7 +48,27 @@ void Communicator::AddToComboList(const UWorld* World, IGameFieldElementInterfac
 	{
 		return;
 	}
-	StateInterface->AddToList(Interface);
+
+	if (StateInterface->IsElementValidNew(Interface))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Element is new ! Added to List"));
+		StateInterface->AddToList(Interface);
+	}
+	else
+	{
+		if (StateInterface->IsElementPrevious(Interface))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Element is previous ! Removing top"));
+			Interface = StateInterface->PopList();
+
+			Interface->SetHighlight();
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Element is somewhere in betwee! Resetting all!"));
+			ResetAllElements(World);
+		}
+	}
 }
 
 void Communicator::PopComboList(const UWorld* World)
