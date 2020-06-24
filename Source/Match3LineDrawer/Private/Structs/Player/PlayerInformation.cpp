@@ -6,6 +6,7 @@ FPlayerInformation::FPlayerInformation()
 {
 	MovesLeft = 10;
 	Heap.Empty();
+	ElementInterface = nullptr;
 }
 
 int32 FPlayerInformation::Pop()
@@ -35,4 +36,24 @@ void FPlayerInformation::SetCurrentColorIndex(int32 Index)
 int32 FPlayerInformation::GetCurrentColorIndex() const
 {
 	return CurrentColorIndex;
+}
+
+void FPlayerInformation::SetInterface(IGameFieldElementInterface* Interface)
+{
+	ElementInterface = Interface;
+}
+
+void FPlayerInformation::RemoveInterface()
+{
+	ElementInterface = nullptr;
+}
+
+IGameFieldElementInterface* FPlayerInformation::GetCurrentInterface()
+{
+	return ElementInterface;
+}
+
+bool FPlayerInformation::HasCurrentInterface() const
+{
+	return !(ElementInterface == nullptr);
 }

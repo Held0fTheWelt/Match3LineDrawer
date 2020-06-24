@@ -21,6 +21,8 @@ public:
 
     static void ResetGameFieldComponents(const UWorld* World);
 
+    static void SetCurrentColorIndex(const UWorld* World, class IGameFieldElementInterface* ElementInterface);
+
 private:
     static bool GetPlayerController(const UWorld* World, class APlayerController* &PlayerController);
 

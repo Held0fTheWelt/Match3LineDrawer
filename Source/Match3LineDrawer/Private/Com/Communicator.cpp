@@ -11,6 +11,7 @@
 #include "Interfaces/GameField/GameFieldInterface.h"
 #include "Interfaces/GameFieldElement/GameFieldElementInterface.h"
 #include "Interfaces/Controller/PlayerControllerInterface.h"
+#include "Interfaces/States/PlayerStateInterface.h"
 
 void Communicator::BroadcastLevelLoad(const class UWorld* World, FGameSetup& GameSetup)
 {
@@ -111,6 +112,22 @@ void Communicator::ResetGameFieldComponents(const UWorld* World)
 			{
 				Element->SetHighlight();
 			}
+		}
+	}
+}
+
+void Communicator::SetCurrentColorIndex(const UWorld* World, class IGameFieldElementInterface* ElementInterface)
+{
+	TArray<AActor*> Actors;
+
+	UGameplayStatics::GetAllActorsWithInterface(World, UPlayerStateInterface::StaticClass(), Actors);
+
+	for (auto Actor : Actors)
+	{
+		IPlayerStateInterface* Interface = Cast<IPlayerStateInterface>(Actor);
+		if (Interface != nullptr)
+		{
+			Interface->SetCurrentColorIndex(ElementInterface);
 		}
 	}
 }

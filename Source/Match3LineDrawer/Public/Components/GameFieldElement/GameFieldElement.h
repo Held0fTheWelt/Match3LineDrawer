@@ -41,4 +41,8 @@ private:
 	FElementInformation ElementInformation;
 	
 
+
+	// Inherited via IGameFieldElementInterface
+	virtual int32 GetColorNumber() const override;
+
 };

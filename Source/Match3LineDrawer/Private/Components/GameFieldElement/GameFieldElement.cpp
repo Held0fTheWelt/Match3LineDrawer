@@ -54,7 +54,17 @@ void UGameFieldElement::OnEndMouseOver(UPrimitiveComponent* TouchedComponent)
 
 void UGameFieldElement::OnBeginMouseOver(UPrimitiveComponent* TouchedComponent)
 {
+	if (!Communicator::IsMouseDown(GetWorld()))
+	{
+		Communicator::SetCurrentColorIndex(GetWorld(), this);
+	}
+
 	SetHighlight(true);
+}
+
+int32 UGameFieldElement::GetColorNumber() const
+{
+	ElementInformation.ColorNumber;
 }
 
 void UGameFieldElement::SetColorInformation(int32 ColorNumber)

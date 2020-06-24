@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Interfaces/GameFieldElement/GameFieldElementInterface.h"
 #include "PlayerInformation.generated.h"
 
 
@@ -24,11 +25,18 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	int32 CurrentColorIndex;
 
+	IGameFieldElementInterface* ElementInterface;
+
 public:
 	int32 Pop();
 	void Push(int32 Value);
 
 	void SetCurrentColorIndex(int32 Index);
 	int32  GetCurrentColorIndex() const;
+
+	IGameFieldElementInterface* GetCurrentInterface();
+	void SetInterface(IGameFieldElementInterface* Interface);
+	void RemoveInterface();
+	bool HasCurrentInterface() const;
 };
 
