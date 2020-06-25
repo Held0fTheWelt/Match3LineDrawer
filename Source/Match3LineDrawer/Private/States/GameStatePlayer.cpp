@@ -28,7 +28,8 @@ void AGameStatePlayer::ResetValues()
 
 void AGameStatePlayer::AddToList(IGameFieldElementInterface* Element)
 {
-	CurrentStatus.Push(Element);
+	CurrentStatus.Push(Element);	
+	Communicator::PlaySoundClip(GetWorld(), EGameAudioType::AT_CLICK, .5 + .1 * CurrentStatus.HeapCount);
 }
 
 IGameFieldElementInterface* AGameStatePlayer::PopList()
@@ -80,6 +81,23 @@ bool AGameStatePlayer::MoveComplete()
 	}
 
 	Communicator::RowSolved(GetWorld(), CurrentStatus.HeapCount);
+
+	if (CurrentStatus.HeapCount >= 10)
+	{
+		Communicator::PlaySoundClip(GetWorld(), EGameAudioType::AT_TEN, 1);		
+	}
+	else if (CurrentStatus.HeapCount >= 8)
+	{
+		Communicator::PlaySoundClip(GetWorld(), EGameAudioType::AT_EIGHT, 1);
+	}
+	else if (CurrentStatus.HeapCount >= 6)
+	{
+		Communicator::PlaySoundClip(GetWorld(), EGameAudioType::AT_SIX, 1);
+	}
+	else if (CurrentStatus.HeapCount >= 3)
+	{
+		Communicator::PlaySoundClip(GetWorld(), EGameAudioType::AT_THREE, 1);
+	}
 	return true;
 }
 

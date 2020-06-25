@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Enums/AudioType/AudioType.h"
 #include "Interfaces/GameMode/GameModeInterface.h"
 #include "Structs/Setup/GameSetup.h"
 #include "GameModeGame.generated.h"
@@ -28,6 +29,9 @@ private:
 
 	// Inherited via IGameModeInterface
 	virtual void RowSolved(int32 RowCount);
+
+	// Inherited via IGameModeInterface
+	virtual void PlayAudioClip(EGameAudioType AudioType, float Pitch) override;
 };
 
 

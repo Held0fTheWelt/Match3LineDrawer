@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Enums/AudioType/AudioType.h"
 #include "UObject/Interface.h"
 #include "GameModeInterface.generated.h"
 
@@ -23,4 +24,5 @@ class MATCH3LINEDRAWER_API IGameModeInterface
 
 public:
 	virtual void RowSolved(int32 RowCount) = 0;
+	virtual void PlayAudioClip(EGameAudioType  AudioType, float Pitch) = 0;
 };

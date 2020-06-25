@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Structs/Colors/ColorDefinition.h"
 #include "Structs/ScoreMultiplier/ScoreMultiplierList.h"
+#include "Structs/AudioSetup/AudioSetup.h"
 #include "GameSetup.generated.h"
 
 
@@ -28,5 +29,8 @@ public:
 
 	UPROPERTY(VisibleAnywhere)
 	FScoreMultiplierList Multiplier;
+
+	UPROPERTY(VisibleAnywhere)
+	FAudioSetup AudioSetup;
 };
 

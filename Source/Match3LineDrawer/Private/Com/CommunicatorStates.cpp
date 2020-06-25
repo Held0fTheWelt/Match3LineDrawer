@@ -101,6 +101,7 @@ void Communicator::CountCurrentHighlight(const UWorld* World)
 	}
 }
 
+
 void Communicator::RowSolved(const UWorld* World, int32 NumberOfTiles)
 {
 	IGameStateInterface* Interface = nullptr;
@@ -173,4 +174,5 @@ bool Communicator::GetGameStateInterface(const UWorld* World, IGameStateInterfac
 	}
 	return true;
 }
+
 #pragma endregion

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 
 #include "GameFramework/PlayerController.h"
+#include "Enums/AudioType/AudioType.h"
 #include "Structs/Setup/GameSetup.h"
 #include "Structs/ElementReturnInformation/ElementReturnInformation.h"
 /**
@@ -36,6 +37,8 @@ public:
     static void PopComboList(const UWorld* World);
 
     static void CountCurrentHighlight(const UWorld* World);
+    
+    static void PlaySoundClip(const UWorld* World, EGameAudioType AudioType, float Pitch);
 
     static void RowSolved(const UWorld* World, int32 NumberOfTiles);
 
@@ -51,6 +54,8 @@ private:
     static bool GetGameFieldInterface(const UWorld* World, class IGameFieldInterface* &Interface);
 
     static bool GetGameStateInterface(const UWorld* World, class IGameStateInterface* &Interface);
+
+    static bool GetGameModeInterface(const UWorld* World, class IGameModeInterface* &Interface);
 
     static void SpreadColorSet(const UWorld* World, FColorDefinition& Colordefinition);
 

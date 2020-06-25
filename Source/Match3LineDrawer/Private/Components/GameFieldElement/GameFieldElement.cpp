@@ -8,7 +8,6 @@
 #include "Engine/StaticMesh.h"
 #include "Interfaces/GameField/GameFieldInterface.h"
 #include "Materials/MaterialInterface.h"
-#include "..\..\..\Public\Components\GameFieldElement\GameFieldElement.h"
 
 UGameFieldElement::UGameFieldElement()
 {
@@ -26,7 +25,7 @@ void UGameFieldElement::BeginPlay()
 void UGameFieldElement::SetHighlight(bool IsHighlighted)
 {
 	if (IsHighlighted)
-	{
+	{		
 		SetCustomDepthStencilValue(2);
 		SetRenderCustomDepth(true);
 	}
@@ -57,12 +56,14 @@ void UGameFieldElement::OnBeginMouseOver(UPrimitiveComponent* TouchedComponent)
 	{
 		Communicator::SetCurrentColorIndex(GetWorld(), this);
 		SetHighlight(true);
+		Communicator::PlaySoundClip(GetWorld(), EGameAudioType::AT_HOVER, 1);
 	}
 	else
 	{
 		if (Communicator::GetCurrentColorIndex(GetWorld()) != ElementInformation.ColorNumber)
 		{
 			Communicator::ResetAllElements(GetWorld());
+			Communicator::PlaySoundClip(GetWorld(), EGameAudioType::AT_FAILURE, 1);
 		}
 		else
 		{

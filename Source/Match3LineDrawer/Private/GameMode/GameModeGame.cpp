@@ -4,11 +4,13 @@
 
 #include "Com/Communicator.h"
 #include "Engine/World.h"
+#include "Enums/AudioType/AudioType.h"
 #include "GamePlayerController.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/GameStateBase.h"
 #include "Interfaces/States/GameStateInterface.h"
 #include "Kismet/GameplayStatics.h"
+#include "Structs/AudioSetup/AudioSetup.h"
 
 AGameModeGame::AGameModeGame()
 {
@@ -49,4 +51,36 @@ void AGameModeGame::BeginPlay()
 void AGameModeGame::RowSolved(int32 RowCount)
 {
 	
+}
+
+void AGameModeGame::PlayAudioClip(EGameAudioType  AudioType, float Pitch)
+{
+	switch (AudioType)
+	{
+	case EGameAudioType::AT_NONE:
+		break;
+	case EGameAudioType::AT_HOVER:
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), GameSetup.AudioSetup.HoverSound, FVector(0, 0, 0), 1, Pitch);
+		break;
+	case EGameAudioType::AT_CLICK:
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), GameSetup.AudioSetup.ClickedSound, FVector(0, 0, 0), 1, Pitch);		
+		break;
+	case EGameAudioType::AT_THREE:
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), GameSetup.AudioSetup.ThreeLine, FVector(0, 0, 0), 1, Pitch);
+		break;
+	case EGameAudioType::AT_SIX:
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), GameSetup.AudioSetup.SixLine, FVector(0, 0, 0), 1, Pitch);
+		break;
+	case EGameAudioType::AT_EIGHT:
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), GameSetup.AudioSetup.EightLine, FVector(0, 0, 0), 1, Pitch);
+		break;
+	case EGameAudioType::AT_TEN:
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), GameSetup.AudioSetup.TenLine, FVector(0, 0, 0), 1, Pitch);
+		break;
+	case EGameAudioType::AT_FAILURE:
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), GameSetup.AudioSetup.FailureSound, FVector(0, 0, 0), 1, Pitch);
+		break;
+	default:
+		break;
+	}
 }
