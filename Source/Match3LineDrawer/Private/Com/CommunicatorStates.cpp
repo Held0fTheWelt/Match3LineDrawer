@@ -113,14 +113,9 @@ void Communicator::RowSolved(const UWorld* World, int32 NumberOfTiles)
 
 void Communicator::ClearHeap(const UWorld* World, TArray<class IGameFieldElementInterface*> Elements)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Having %d elements"), Elements.Num());
 	for (int i = 0; i < Elements.Num(); i++)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Element %s"), *Elements[i]->GetComponentName());
 		FElementReturnInformation ReturnInformation = Communicator::ClearCurrentFieldElementMaterial(World, Elements[i]);
-		//Elements[i]->SetColorInformation(ReturnInformation.ColorIndex);
-
-		UE_LOG(LogTemp, Warning, TEXT("---------"));
 	}
 	Elements.Empty();
 }

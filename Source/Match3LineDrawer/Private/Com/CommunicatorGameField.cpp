@@ -75,10 +75,7 @@ FElementReturnInformation Communicator::ClearCurrentFieldElementMaterial(const U
 	{
 		FElementReturnInformation CurrentInformation = FElementReturnInformation(Element->GetColorNumber(), Element->GetMaterialInterface());
 		FElementReturnInformation ReturnInformation = ClearCurrentFieldElementMaterial(World, Element->GetUpperElement());
-		UE_LOG(LogTemp, Warning, TEXT("Element %s now has returned Colorindex %d"), * Element->GetComponentName(), ReturnInformation.ColorIndex);
 		Element->SetColorInformation(ReturnInformation.ColorIndex);
-		//Element->SetMaterialInterface(GameField->GetMaterialInterface(ReturnInformation.ColorIndex));
-		UE_LOG(LogTemp, Warning, TEXT("Element %s is returning Colorindex %d"), *Element->GetComponentName(),CurrentInformation.ColorIndex);
 		return CurrentInformation;
 	}
 	else
@@ -91,12 +88,9 @@ FElementReturnInformation Communicator::ClearCurrentFieldElementMaterial(const U
 			UE_LOG(LogTemp, Warning, TEXT("Could not find GameField ! This shouldn't happen !"));
 			return CurrentInformation;
 		}
-		FElementReturnInformation ReturnInformation = Interface->GetRandomMaterialInterface();
 
-		UE_LOG(LogTemp, Warning, TEXT("Element %s now has new Colorindex %d"), *Element->GetComponentName(), ReturnInformation.ColorIndex);
+		FElementReturnInformation ReturnInformation = Interface->GetRandomMaterialInterface();
 		Element->SetColorInformation(ReturnInformation.ColorIndex);
-		//Element->SetMaterialInterface(GameField->GetMaterialInterface(ReturnInformation.ColorIndex));
-		UE_LOG(LogTemp, Warning, TEXT("Element %s is returning Colorindex %d"), *Element->GetComponentName(), CurrentInformation.ColorIndex);
 
 		return CurrentInformation;
 	}
