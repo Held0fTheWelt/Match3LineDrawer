@@ -17,5 +17,12 @@ public:
 public:
 	UPROPERTY(VisibleAnywhere)
 	int32 Score;
+
+public:
+	void ResetScore();
+
+	void AddScore(int32 ScoreToAdd);
+
+	int32 GetScore() const;
 };
 

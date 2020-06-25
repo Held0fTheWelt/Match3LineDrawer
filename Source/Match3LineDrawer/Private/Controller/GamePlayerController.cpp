@@ -59,14 +59,17 @@ void AGamePlayerController::MouseReleased()
 	}
 	else
 	{
-		StateInterface->MoveComplete();
+		if (StateInterface->MoveComplete())
+		{
+			SolveConditionMatched();
+		}
+		else
+		{
+			Communicator::ResetAllElements(GetWorld());
+		}
 	}
 
-	bMouseIsPressed = false;
-
-	Communicator::ResetAllElements(GetWorld());
-
-	
+	bMouseIsPressed = false;	
 }
 
 const bool AGamePlayerController::GetMouseIsPressed() const
@@ -77,4 +80,11 @@ const bool AGamePlayerController::GetMouseIsPressed() const
 void AGamePlayerController::ResetPlayerControllerValues()
 {
 	bMouseIsPressed = false;
+}
+
+void AGamePlayerController::SolveConditionMatched()
+{
+	Communicator::UpdateGameField(GetWorld(), StateInterface->GetHeap());
+
+	Communicator::ResetAllElements(GetWorld());
 }

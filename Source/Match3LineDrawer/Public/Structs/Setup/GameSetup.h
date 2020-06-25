@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Structs/Colors/ColorDefinition.h"
+#include "Structs/ScoreMultiplier/ScoreMultiplierList.h"
 #include "GameSetup.generated.h"
 
 
@@ -24,5 +25,8 @@ public:
 		
 	UPROPERTY(VisibleAnywhere)
 	int32 PointsPerTile;
+
+	UPROPERTY(VisibleAnywhere)
+	FScoreMultiplierList Multiplier;
 };
 

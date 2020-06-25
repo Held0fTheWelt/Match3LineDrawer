@@ -23,8 +23,12 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Score")
 	FGameScore GameScore;	
 
-	int32 TileCount;
+	int32 TileScore;
+	TArray<FScoreMultiplier> Multiplier;
+	// Inherited via IGameStateInterface
+	virtual void SetNewTileScore(int32 ScoreCount);
 
 	// Inherited via IGameStateInterface
-	virtual void SetNewTileCount(int32 Count);
+	virtual void SetNewTileCountMultiplier(TArray<FScoreMultiplier> ScoreMultiplier) override;
+	virtual void CountSolvedRow(int32 NumberOfTiles) override;
 };

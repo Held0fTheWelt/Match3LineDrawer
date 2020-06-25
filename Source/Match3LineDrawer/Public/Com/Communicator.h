@@ -37,12 +37,20 @@ public:
 
     static void CountCurrentHighlight(const UWorld* World);
 
+    static void RowSolved(const UWorld* World, int32 NumberOfTiles);
+
+    static void UpdateGameField(const UWorld* World, TArray<class IGameFieldElementInterface*> Heap);
+
 private:
     static bool GetPlayerController(const UWorld* World, class APlayerController* &PlayerController);
 
     static bool GetPlayerControllerInterface(const UWorld* World, class IPlayerControllerInterface* &Interface);
 
     static bool GetPlayerStateInterface(const UWorld* World, class IPlayerStateInterface* &Interface);
+
+    static bool GetGameFieldInterface(const UWorld* World, class IGameFieldInterface* &Interface);
+
+    static bool GetGameStateInterface(const UWorld* World, class IGameStateInterface* &Interface);
 
     static void SpreadColorSet(const UWorld* World, FColorDefinition& Colordefinition);
 

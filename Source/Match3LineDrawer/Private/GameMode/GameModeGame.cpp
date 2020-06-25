@@ -42,5 +42,11 @@ void AGameModeGame::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("Could not cast GameStateBase to GameStateInterface ! This shouldn't happen !"));
 	}	
 
-	StateInterface->SetNewTileCount(GameSetup.PointsPerTile);
+	StateInterface->SetNewTileScore(GameSetup.PointsPerTile);
+	StateInterface->SetNewTileCountMultiplier(GameSetup.Multiplier.GetMultiplierList());
+}
+
+void AGameModeGame::RowSolved(int32 RowCount)
+{
+	
 }

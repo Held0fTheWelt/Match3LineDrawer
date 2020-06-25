@@ -8,4 +8,5 @@ FGameSetup::FGameSetup()
 	PointsPerTile = 15;
 
 	Colors = FColorDefinition();
+	Multiplier = FScoreMultiplierList();
 }

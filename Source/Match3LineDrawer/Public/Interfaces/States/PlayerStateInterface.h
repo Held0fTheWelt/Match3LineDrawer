@@ -30,5 +30,6 @@ public:
 	virtual class IGameFieldElementInterface* GetCurrentElementInterface() = 0;
 	virtual bool IsElementValidNew(class IGameFieldElementInterface* NewElement) const = 0;
 	virtual bool IsElementPrevious(class IGameFieldElementInterface* NewElement) const = 0;
-	virtual void MoveComplete() = 0;
+	virtual bool MoveComplete() = 0;
+	virtual TArray<class IGameFieldElementInterface*> GetHeap() = 0;
 };

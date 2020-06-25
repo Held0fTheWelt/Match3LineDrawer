@@ -12,8 +12,7 @@
 #include "Interfaces/Controller/PlayerControllerInterface.h"
 #include "Interfaces/States/PlayerStateInterface.h"
 
-#pragma region Spread ColorSet
-void Communicator::SpreadColorSet(const UWorld* World, FColorDefinition& Colordefinition)
+bool Communicator::GetGameFieldInterface(const UWorld* World, IGameFieldInterface*& Interface)
 {
 	TArray<AActor*> Actors;
 
@@ -21,35 +20,56 @@ void Communicator::SpreadColorSet(const UWorld* World, FColorDefinition& Colorde
 
 	for (auto Actor : Actors)
 	{
-		IGameFieldInterface* Interface = Cast<IGameFieldInterface>(Actor);
-		if (Interface != nullptr)
+		IGameFieldInterface* FieldInterface = Cast<IGameFieldInterface>(Actor);
+		if (FieldInterface != nullptr)
 		{
-			Interface->SetColourSet(Colordefinition);
+			Interface = FieldInterface;
+			return true;
 		}
 	}
+	return false;
+}
+
+#pragma region Spread ColorSet
+void Communicator::SpreadColorSet(const UWorld* World, FColorDefinition& Colordefinition)
+{
+	IGameFieldInterface* Interface = nullptr;
+	if (!(GetGameFieldInterface(World, Interface)))
+	{
+		return;
+	}
+	
+	Interface->SetColourSet(Colordefinition);	
 }
 #pragma endregion
 
 #pragma region Reset GameField Components
 void Communicator::ResetGameFieldComponents(const UWorld* World)
 {
-
-	TArray<AActor*> Actors;
-
-	UGameplayStatics::GetAllActorsWithInterface(World, UGameFieldInterface::StaticClass(), Actors);
-
-	for (auto Actor : Actors)
+	IGameFieldInterface* Interface = nullptr;
+	if (!(GetGameFieldInterface(World, Interface)))
 	{
-		IGameFieldInterface* Interface = Cast<IGameFieldInterface>(Actor);
-		if (Interface != nullptr)
-		{
-			TArray<IGameFieldElementInterface*> Elements = Interface->GetGameFieldElements();
+		return;
+	}
+	TArray<IGameFieldElementInterface*> Elements = Interface->GetGameFieldElements();
 
-			for (auto Element : Elements)
-			{
-				Element->SetHighlight();
-			}
-		}
+	for (auto Element : Elements)
+	{
+		Element->SetHighlight();
 	}
 }
 #pragma endregion
+
+void Communicator::UpdateGameField(const UWorld* World, TArray<class IGameFieldElementInterface*> Heap)
+{
+	IGameFieldInterface* Interface = nullptr;
+	if (!(GetGameFieldInterface(World, Interface)))
+	{
+		return;
+	}
+
+	for (auto Element : Heap)
+	{
+
+	}
+}

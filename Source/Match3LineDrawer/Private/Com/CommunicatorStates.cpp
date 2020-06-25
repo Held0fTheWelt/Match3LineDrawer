@@ -11,6 +11,7 @@
 #include "Interfaces/GameField/GameFieldInterface.h"
 #include "Interfaces/GameFieldElement/GameFieldElementInterface.h"
 #include "Interfaces/Controller/PlayerControllerInterface.h"
+#include "Interfaces/States/GameStateInterface.h"
 #include "Interfaces/States/PlayerStateInterface.h"
 
 
@@ -100,6 +101,18 @@ void Communicator::CountCurrentHighlight(const UWorld* World)
 	}
 }
 
+void Communicator::RowSolved(const UWorld* World, int32 NumberOfTiles)
+{
+	IGameStateInterface* Interface = nullptr;
+	if (!GetGameStateInterface(World, Interface))
+	{
+		return;
+	}
+	Interface->CountSolvedRow(NumberOfTiles);
+}
+
+
+
 
 void Communicator::ResetPlayerState(const UWorld* World)
 {
@@ -122,6 +135,28 @@ bool Communicator::GetPlayerStateInterface(const UWorld* World, IPlayerStateInte
 		for (auto Actor : Actors)
 		{
 			IPlayerStateInterface* StateInterface = Cast<IPlayerStateInterface>(Actor);
+			if (StateInterface != nullptr)
+			{
+				Interface = StateInterface;
+				return true;
+			}
+		}
+		return false;
+	}
+	return true;
+}
+
+bool Communicator::GetGameStateInterface(const UWorld* World, IGameStateInterface*& Interface)
+{
+	if (Interface == nullptr)
+	{
+		TArray<AActor*> Actors;
+
+		UGameplayStatics::GetAllActorsWithInterface(World, UGameStateInterface::StaticClass(), Actors);
+
+		for (auto Actor : Actors)
+		{
+			IGameStateInterface* StateInterface = Cast<IGameStateInterface>(Actor);
 			if (StateInterface != nullptr)
 			{
 				Interface = StateInterface;

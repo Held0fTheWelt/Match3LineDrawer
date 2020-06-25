@@ -3,8 +3,9 @@
 
 #include "GameStatePlayer.h"
 
+#include "Com/Communicator.h"
 #include "Interfaces/GameFieldElement/GameFieldElementInterface.h"
-#include "..\..\Public\States\GameStatePlayer.h"
+
 
 int32 AGameStatePlayer::GetCurrentColorIndex() const
 {
@@ -68,9 +69,21 @@ bool AGameStatePlayer::IsElementPrevious(IGameFieldElementInterface* NewElement)
 	return false;
 }
 
-void AGameStatePlayer::MoveComplete()
+bool AGameStatePlayer::MoveComplete()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Move counted with a count of %d"), CurrentStatus.HeapCount);
 
+	if (CurrentStatus.HeapCount < 3)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%d tiles is too few to make a complete move. try again"), CurrentStatus.HeapCount);
+		return false;
+	}
 
+	Communicator::RowSolved(GetWorld(), CurrentStatus.HeapCount);
+	return true;
+}
+
+TArray<class IGameFieldElementInterface*> AGameStatePlayer::GetHeap()
+{
+	return CurrentStatus.Heap;
 }

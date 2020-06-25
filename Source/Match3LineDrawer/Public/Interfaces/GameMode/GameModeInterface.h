@@ -6,7 +6,8 @@
 #include "UObject/Interface.h"
 #include "GameModeInterface.generated.h"
 
-// This class does not need to be modified.
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FSolveGroup);
+
 UINTERFACE(MinimalAPI)
 class UGameModeInterface : public UInterface
 {
@@ -20,6 +21,6 @@ class MATCH3LINEDRAWER_API IGameModeInterface
 {
 	GENERATED_BODY()
 
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	virtual void RowSolved(int32 RowCount) = 0;
 };

@@ -42,5 +42,8 @@ private:
 	virtual bool IsElementPrevious(IGameFieldElementInterface* NewElement) const override;
 
 	// Inherited via IPlayerStateInterface
-	virtual void MoveComplete() override;
+	virtual bool MoveComplete() override;
+
+	// Inherited via IPlayerStateInterface
+	virtual TArray<class IGameFieldElementInterface*> GetHeap() override;
 };
