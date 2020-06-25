@@ -11,6 +11,7 @@
 #include "Interfaces/GameFieldElement/GameFieldElementInterface.h"
 #include "Interfaces/Controller/PlayerControllerInterface.h"
 #include "Interfaces/States/PlayerStateInterface.h"
+#include "Structs/ElementReturnInformation/ElementReturnInformation.h"
 
 bool Communicator::GetGameFieldInterface(const UWorld* World, IGameFieldInterface*& Interface)
 {
@@ -27,6 +28,7 @@ bool Communicator::GetGameFieldInterface(const UWorld* World, IGameFieldInterfac
 			return true;
 		}
 	}
+
 	return false;
 }
 
@@ -41,6 +43,7 @@ void Communicator::SpreadColorSet(const UWorld* World, FColorDefinition& Colorde
 	
 	Interface->SetColourSet(Colordefinition);	
 }
+
 #pragma endregion
 
 #pragma region Reset GameField Components
@@ -60,16 +63,31 @@ void Communicator::ResetGameFieldComponents(const UWorld* World)
 }
 #pragma endregion
 
-void Communicator::UpdateGameField(const UWorld* World, TArray<class IGameFieldElementInterface*> Heap)
+FElementReturnInformation Communicator::ClearCurrentFieldElementMaterial(const UWorld* World, IGameFieldElementInterface* Element)
 {
-	IGameFieldInterface* Interface = nullptr;
-	if (!(GetGameFieldInterface(World, Interface)))
+	if (Element->HasUpperElement())
 	{
-		return;
+		FElementReturnInformation CurrentInformation = FElementReturnInformation(Element->GetColorNumber(), Element->GetMaterialInterface());
+		FElementReturnInformation ReturnInformation = ClearCurrentFieldElementMaterial(World, Element->GetUpperElement());
+		Element->SetMaterialInterface(ReturnInformation.Material);
+		Element->SetColorInformation(ReturnInformation.ColorIndex);
+		return CurrentInformation;
 	}
-
-	for (auto Element : Heap)
+	else
 	{
-		Interface->UpdateGameField(Element);
+		FElementReturnInformation CurrentInformation = FElementReturnInformation(Element->GetColorNumber(), Element->GetMaterialInterface());
+
+		IGameFieldInterface* Interface = nullptr;
+		if (!GetGameFieldInterface(World, Interface))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Could not find GameField ! This shouldn't happen !"));
+			return CurrentInformation;
+		}
+		FElementReturnInformation ReturnInformation = Interface->GetRandomMaterialInterface();
+
+		Element->SetColorInformation(ReturnInformation.ColorIndex);
+		Element->SetMaterialInterface(ReturnInformation.Material);
+
+		return CurrentInformation;
 	}
 }

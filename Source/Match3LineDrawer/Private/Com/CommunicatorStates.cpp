@@ -111,16 +111,15 @@ void Communicator::RowSolved(const UWorld* World, int32 NumberOfTiles)
 	Interface->CountSolvedRow(NumberOfTiles);
 }
 
-void Communicator::ClearHeap(TArray<class IGameFieldElementInterface*> Elements)
+void Communicator::ClearHeap(const UWorld* World, TArray<class IGameFieldElementInterface*> Elements)
 {
-	for (int32 i = 0; i < Elements.Num(); i++)
+	UE_LOG(LogTemp, Warning, TEXT("Having %d elements"), Elements.Num());
+	for (auto Element : Elements)
 	{
-		IGameFieldElementInterface* Element = Elements.Pop(true);
+		Communicator::ClearCurrentFieldElementMaterial(World, Element);
 	}
+	Elements.Empty();
 }
-
-
-
 
 void Communicator::ResetPlayerState(const UWorld* World)
 {

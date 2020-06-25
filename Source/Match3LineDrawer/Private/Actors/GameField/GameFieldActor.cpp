@@ -1,12 +1,13 @@
 // @Yves Tanas 2020
 
 
-#include "GameFieldActor.h"
+#include "Actors/GameField/GameFieldActor.h"
 
 #include "Components/GameFieldElement/GameFieldElement.h"
 #include "Components/SceneComponent.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Math/UnrealMathUtility.h"
+#include "Structs/ElementReturnInformation/ElementReturnInformation.h"
 #include "UObject/ConstructorHelpers.h"
 
 // Sets default values
@@ -42,7 +43,7 @@ AGameFieldActor::AGameFieldActor(const FObjectInitializer& ObjectInitializer) : 
 		for (int8 i = 0; i < SizeX; i++)
 		{
 			for (int8 j = 0; j < SizeY; j++)
-			{
+			{				
 				const FString ElementName = "GameField" + FString::FromInt(i) + FString::FromInt(j);
 
 				// create the static mesh component
@@ -58,7 +59,7 @@ AGameFieldActor::AGameFieldActor(const FObjectInitializer& ObjectInitializer) : 
 
 				if (i != 0)
 				{
-					Element->SetUpperElement(GameFieldElements[GameFieldElements.Num() - 1 - SizeY]);
+					Element->SetUpperElement(GameFieldElements[GameFieldElements.Num() - SizeY]);
 				}
 			}
 		}
@@ -105,7 +106,7 @@ void AGameFieldActor::SetColourSet(FColorDefinition& ColorDefinition)
 	{
 		int32 RandomInteger = FMath::RandRange(0, ColorMaterials.Num() - 1);
 		Element->SetColorNumber(RandomInteger);
-		Element->SetNewMaterialInstance(ColorMaterials[RandomInteger]);
+		Element->SetMaterialInterface(ColorMaterials[RandomInteger]);
 	}
 }
 
@@ -134,8 +135,11 @@ UMaterialInterface* AGameFieldActor::GetMaterialInterface(int32 index) const
 
 }
 
-void AGameFieldActor::UpdateGameField(IGameFieldElementInterface* InputElement)
+FElementReturnInformation AGameFieldActor::GetRandomMaterialInterface() const
 {
+	int32 ColorIndex = FMath::RandRange(0, ColorMaterials.Num() - 1);
 
+	return FElementReturnInformation(ColorIndex, ColorMaterials[ColorIndex]);
 }
+
 

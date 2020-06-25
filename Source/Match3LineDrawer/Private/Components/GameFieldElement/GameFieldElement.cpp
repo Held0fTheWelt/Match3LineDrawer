@@ -8,6 +8,7 @@
 #include "Engine/StaticMesh.h"
 #include "Interfaces/GameField/GameFieldInterface.h"
 #include "Materials/MaterialInterface.h"
+#include "..\..\..\Public\Components\GameFieldElement\GameFieldElement.h"
 
 UGameFieldElement::UGameFieldElement()
 {
@@ -20,14 +21,6 @@ void UGameFieldElement::BeginPlay()
 
 	OnBeginCursorOver.AddDynamic(this, &UGameFieldElement::OnBeginMouseOver);
 	OnEndCursorOver.AddDynamic(this, &UGameFieldElement::OnEndMouseOver);
-}
-
-void UGameFieldElement::SetNewMaterialInstance(UMaterialInterface* MaterialInterface)
-{
-	for (int i = 0; i < GetMaterials().Num(); i++)
-	{
-		SetMaterial(i, MaterialInterface);
-	}
 }
 
 void UGameFieldElement::SetHighlight(bool IsHighlighted)
@@ -82,6 +75,19 @@ int32 UGameFieldElement::GetColorNumber() const
 	return ElementInformation.ColorNumber;
 }
 
+UMaterialInterface* UGameFieldElement::GetMaterialInterface()
+{
+	return GetMaterial(0);
+}
+
+void UGameFieldElement::SetMaterialInterface(UMaterialInterface* Material)
+{
+	for (int i = 0; i < GetMaterials().Num(); i++)
+	{
+		SetMaterial(i, Material);
+	}
+}
+
 void UGameFieldElement::SetColorInformation(int32 ColorNumber)
 {
 	IGameFieldInterface* GameField = Cast<IGameFieldInterface>(GetOwner());
@@ -97,7 +103,7 @@ void UGameFieldElement::SetColorInformation(int32 ColorNumber)
 
 		if (MaterialInterface != nullptr)
 		{
-			SetNewMaterialInstance(MaterialInterface);
+			SetMaterialInterface(MaterialInterface);
 		}
 		else
 		{
@@ -114,6 +120,11 @@ void UGameFieldElement::SetColorNumber(int32 ColorNumber)
 void UGameFieldElement::SetUpperElement(IGameFieldElementInterface* Upper)
 {
 	UpperElement = Upper;
+}
+
+bool UGameFieldElement::HasUpperElement() const
+{
+	return !(UpperElement == nullptr);
 }
 
 IGameFieldElementInterface* UGameFieldElement::GetUpperElement() const

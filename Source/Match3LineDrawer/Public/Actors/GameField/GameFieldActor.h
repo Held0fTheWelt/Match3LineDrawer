@@ -49,6 +49,5 @@ private:
 	// Inherited via IGameFieldInterface
 	virtual UMaterialInterface* GetMaterialInterface(int32 index) const override;
 
-	// Inherited via IGameFieldInterface
-	virtual void UpdateGameField(IGameFieldElementInterface* InputElement) override;
+	virtual FElementReturnInformation  GetRandomMaterialInterface() const override;
 };

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "Structs/Colors/ColorDefinition.h"
+#include "Structs/ElementReturnInformation/ElementReturnInformation.h"
 #include "GameFieldInterface.generated.h"
 
 // This class does not need to be modified.
@@ -22,8 +23,8 @@ class MATCH3LINEDRAWER_API IGameFieldInterface
 	GENERATED_BODY()
 
 public:
-	virtual void SetColourSet(FColorDefinition& ColorDefinition) = 0;;
+	virtual void SetColourSet(FColorDefinition& ColorDefinition) = 0;
 	virtual TArray<class IGameFieldElementInterface*> GetGameFieldElements() = 0;
 	virtual class UMaterialInterface* GetMaterialInterface(int32 index) const = 0;
-	virtual void UpdateGameField(class IGameFieldElementInterface* InputElement) = 0;
+	virtual FElementReturnInformation  GetRandomMaterialInterface() const = 0;
 };

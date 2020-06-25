@@ -21,14 +21,15 @@ public:
 	UGameFieldElement();
 
 public:
-	void SetNewMaterialInstance(class UMaterialInterface* MaterialInterface);
 
 	virtual void SetColorInformation(int32 ColorNumber) override;
 
 	void SetColorNumber(int32 ColorNumber);
 
+	virtual void SetMaterialInterface(class UMaterialInterface* Material) override;
 	void SetUpperElement(IGameFieldElementInterface* Upper);
-	IGameFieldElementInterface* GetUpperElement() const;
+	virtual bool HasUpperElement() const override;
+	virtual IGameFieldElementInterface* GetUpperElement() const override;
 	
 protected:
 	virtual void BeginPlay() override;
@@ -51,5 +52,12 @@ private:
 
 	// Inherited via IGameFieldElementInterface
 	virtual int32 GetColorNumber() const override;
+
+
+	// Inherited via IGameFieldElementInterface
+	virtual UMaterialInterface* GetMaterialInterface() override;
+
+
+	// Inherited via IGameFieldElementInterface
 
 };

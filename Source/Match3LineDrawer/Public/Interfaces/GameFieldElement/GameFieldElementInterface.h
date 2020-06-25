@@ -24,4 +24,8 @@ public:
 	virtual void SetHighlight(bool IsHighlighted = false) = 0;
 	virtual void SetColorInformation(int32 ColorNumber) = 0;
 	virtual int32 GetColorNumber() const = 0;
+	virtual bool HasUpperElement() const = 0;
+	virtual IGameFieldElementInterface* GetUpperElement() const = 0;
+	virtual class UMaterialInterface* GetMaterialInterface() = 0;
+	virtual void SetMaterialInterface(class UMaterialInterface* Material) = 0;
 };

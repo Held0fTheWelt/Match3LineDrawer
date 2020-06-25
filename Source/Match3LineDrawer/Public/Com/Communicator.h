@@ -39,7 +39,7 @@ public:
 
     static void RowSolved(const UWorld* World, int32 NumberOfTiles);
 
-    static void ClearHeap(TArray<class IPlayerControllerInterface*> Elements);
+    static void ClearHeap(const UWorld* World, TArray<class IGameFieldElementInterface*> Elements);
 
 private:
     static bool GetPlayerController(const UWorld* World, class APlayerController* &PlayerController);
@@ -53,5 +53,7 @@ private:
     static bool GetGameStateInterface(const UWorld* World, class IGameStateInterface* &Interface);
 
     static void SpreadColorSet(const UWorld* World, FColorDefinition& Colordefinition);
+
+    static FElementReturnInformation ClearCurrentFieldElementMaterial(const UWorld* World, class IGameFieldElementInterface* Element);
 
 };

@@ -84,7 +84,7 @@ void AGamePlayerController::ResetPlayerControllerValues()
 
 void AGamePlayerController::SolveConditionMatched()
 {
-	Communicator::ClearHeap(StateInterface->GetHeap());
+	Communicator::ClearHeap(GetWorld(), StateInterface->GetHeap());
 
 	Communicator::ResetAllElements(GetWorld());
 }
