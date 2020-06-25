@@ -18,11 +18,18 @@ class MATCH3LINEDRAWER_API UGameFieldElement : public UStaticMeshComponent, publ
 
 
 public:
+	UGameFieldElement();
+
+public:
 	void SetNewMaterialInstance(class UMaterialInterface* MaterialInterface);
 
 	virtual void SetColorInformation(int32 ColorNumber) override;
 
 	void SetColorNumber(int32 ColorNumber);
+
+	void SetUpperElement(IGameFieldElementInterface* Upper);
+	IGameFieldElementInterface* GetUpperElement() const;
+	
 protected:
 	virtual void BeginPlay() override;
 
@@ -40,7 +47,7 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Information")
 	FElementInformation ElementInformation;
 	
-
+	IGameFieldElementInterface* UpperElement;
 
 	// Inherited via IGameFieldElementInterface
 	virtual int32 GetColorNumber() const override;

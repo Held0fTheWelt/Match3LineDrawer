@@ -55,6 +55,11 @@ AGameFieldActor::AGameFieldActor(const FObjectInitializer& ObjectInitializer) : 
 				// now you can do whatever setup you need to do				
 				Element->SetRelativeLocation(CalculateElementPosition(i, j));
 				Element->SetStaticMesh(GameFieldMesh);
+
+				if (i != 0)
+				{
+					Element->SetUpperElement(GameFieldElements[GameFieldElements.Num() - 1 - SizeY]);
+				}
 			}
 		}
 	}
@@ -126,6 +131,11 @@ UMaterialInterface* AGameFieldActor::GetMaterialInterface(int32 index) const
 	{
 		return ColorMaterials[index];
 	}
+
+}
+
+void AGameFieldActor::UpdateGameField(IGameFieldElementInterface* InputElement)
+{
 
 }
 

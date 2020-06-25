@@ -9,6 +9,10 @@
 #include "Interfaces/GameField/GameFieldInterface.h"
 #include "Materials/MaterialInterface.h"
 
+UGameFieldElement::UGameFieldElement()
+{
+	UpperElement = nullptr;
+}
 
 void UGameFieldElement::BeginPlay()
 {
@@ -105,4 +109,14 @@ void UGameFieldElement::SetColorInformation(int32 ColorNumber)
 void UGameFieldElement::SetColorNumber(int32 ColorNumber)
 {
 	ElementInformation.SetColorNumber(ColorNumber);
+}
+
+void UGameFieldElement::SetUpperElement(IGameFieldElementInterface* Upper)
+{
+	UpperElement = Upper;
+}
+
+IGameFieldElementInterface* UGameFieldElement::GetUpperElement() const
+{
+	return UpperElement;
 }

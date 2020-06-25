@@ -39,7 +39,7 @@ public:
 
     static void RowSolved(const UWorld* World, int32 NumberOfTiles);
 
-    static void UpdateGameField(const UWorld* World, TArray<class IGameFieldElementInterface*> Heap);
+    static void ClearHeap(TArray<class IPlayerControllerInterface*> Elements);
 
 private:
     static bool GetPlayerController(const UWorld* World, class APlayerController* &PlayerController);

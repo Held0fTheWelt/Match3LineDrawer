@@ -70,6 +70,6 @@ void Communicator::UpdateGameField(const UWorld* World, TArray<class IGameFieldE
 
 	for (auto Element : Heap)
 	{
-
+		Interface->UpdateGameField(Element);
 	}
 }

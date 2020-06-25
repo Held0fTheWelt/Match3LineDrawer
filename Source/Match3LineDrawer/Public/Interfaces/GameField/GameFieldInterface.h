@@ -25,4 +25,5 @@ public:
 	virtual void SetColourSet(FColorDefinition& ColorDefinition) = 0;;
 	virtual TArray<class IGameFieldElementInterface*> GetGameFieldElements() = 0;
 	virtual class UMaterialInterface* GetMaterialInterface(int32 index) const = 0;
+	virtual void UpdateGameField(class IGameFieldElementInterface* InputElement) = 0;
 };

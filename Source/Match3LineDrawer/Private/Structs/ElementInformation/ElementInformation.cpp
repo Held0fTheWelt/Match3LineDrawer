@@ -6,6 +6,8 @@
 FElementInformation::FElementInformation()
 {
 	ColorNumber = -1;
+	Row = -1;
+	Column = -1;
 }
 
 void FElementInformation::SetColorNumber(int32 NewColorNumber)

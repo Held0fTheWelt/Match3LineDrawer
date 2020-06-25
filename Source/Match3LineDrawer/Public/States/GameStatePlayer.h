@@ -20,30 +20,16 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Stats")
 	FPlayerInformation CurrentStatus;
 
-	// Inherited via IPlayerStateInterface
+
 	virtual int32 GetCurrentColorIndex() const override;
 	virtual void SetCurrentColorIndex(class IGameFieldElementInterface* Interface);
-
-	// Inherited via IPlayerStateInterface
 	virtual void ResetValues() override;
-
-	// Inherited via IPlayerStateInterface
 	virtual void AddToList(IGameFieldElementInterface* Element) override;
 	virtual class IGameFieldElementInterface* PopList() override;
-
-	// Inherited via IPlayerStateInterface
 	virtual bool HasCurrentElementInterface() const override;
 	virtual IGameFieldElementInterface* GetCurrentElementInterface() override;
-
-	// Inherited via IPlayerStateInterface
 	virtual bool IsElementValidNew(IGameFieldElementInterface* NewElement) const override;
-
-	// Inherited via IPlayerStateInterface
 	virtual bool IsElementPrevious(IGameFieldElementInterface* NewElement) const override;
-
-	// Inherited via IPlayerStateInterface
 	virtual bool MoveComplete() override;
-
-	// Inherited via IPlayerStateInterface
-	virtual TArray<class IGameFieldElementInterface*> GetHeap() override;
+	virtual TArray<class IGameFieldElementInterface*>& GetHeap() override;
 };

@@ -83,7 +83,7 @@ bool AGameStatePlayer::MoveComplete()
 	return true;
 }
 
-TArray<class IGameFieldElementInterface*> AGameStatePlayer::GetHeap()
+TArray<class IGameFieldElementInterface*>& AGameStatePlayer::GetHeap()
 {
 	return CurrentStatus.Heap;
 }

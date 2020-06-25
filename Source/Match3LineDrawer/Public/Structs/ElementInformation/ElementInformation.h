@@ -16,6 +16,11 @@ public:
 
 public:
 	UPROPERTY(VisibleAnywhere)
+	int32 Row;
+	UPROPERTY(VisibleAnywhere)
+	int32 Column;
+
+	UPROPERTY(VisibleAnywhere)
 	int32 ColorNumber;
 
 public:
