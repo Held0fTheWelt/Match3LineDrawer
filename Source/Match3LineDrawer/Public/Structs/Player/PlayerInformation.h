@@ -23,11 +23,13 @@ public:
 	int32 HeapCount;
 
 	TArray<IGameFieldElementInterface*> Heap;
+	TArray<IGameFieldElementInterface*> &GetSortedHeap();
 
 	UPROPERTY(VisibleAnywhere)
 	int32 CurrentColorIndex;
 
 	IGameFieldElementInterface* CurrentElement;
+	TArray<IGameFieldElementInterface*> SortedHeap;
 
 public:
 	IGameFieldElementInterface* Pop();
@@ -40,5 +42,6 @@ public:
 	void SetInterface(IGameFieldElementInterface* Interface);
 	void RemoveInterface();
 	bool HasCurrentInterface() const;
+	IGameFieldElementInterface* TestUpper(IGameFieldElementInterface* BaseElement, IGameFieldElementInterface* Element);
 };
 

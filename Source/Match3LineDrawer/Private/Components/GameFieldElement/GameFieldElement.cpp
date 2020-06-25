@@ -51,6 +51,8 @@ void UGameFieldElement::OnEndMouseOver(UPrimitiveComponent* TouchedComponent)
 
 void UGameFieldElement::OnBeginMouseOver(UPrimitiveComponent* TouchedComponent)
 {
+	//UE_LOG(LogTemp, Warning, TEXT("Hover Component: %s"),*GetName());
+
 	if (!Communicator::IsMouseDown(GetWorld()))
 	{
 		Communicator::SetCurrentColorIndex(GetWorld(), this);
@@ -80,6 +82,11 @@ UMaterialInterface* UGameFieldElement::GetMaterialInterface()
 	return GetMaterial(0);
 }
 
+FString UGameFieldElement::GetComponentName() const
+{
+	return GetName();
+}
+
 void UGameFieldElement::SetMaterialInterface(UMaterialInterface* Material)
 {
 	for (int i = 0; i < GetMaterials().Num(); i++)
@@ -88,7 +95,7 @@ void UGameFieldElement::SetMaterialInterface(UMaterialInterface* Material)
 	}
 }
 
-void UGameFieldElement::SetColorInformation(int32 ColorNumber)
+void UGameFieldElement::SetColorInformation(int32 Number)
 {
 	IGameFieldInterface* GameField = Cast<IGameFieldInterface>(GetOwner());
 
@@ -99,7 +106,7 @@ void UGameFieldElement::SetColorInformation(int32 ColorNumber)
 	}
 	else
 	{
-		UMaterialInterface* MaterialInterface = GameField->GetMaterialInterface(ColorNumber);
+		UMaterialInterface* MaterialInterface = GameField->GetMaterialInterface(Number);
 
 		if (MaterialInterface != nullptr)
 		{
@@ -110,6 +117,8 @@ void UGameFieldElement::SetColorInformation(int32 ColorNumber)
 			UE_LOG(LogTemp, Warning, TEXT("Could not Get MaterialInterface from GameFieldInterface! This only leads to wrong index usage!"));
 		}
 	}
+
+	ElementInformation.ColorNumber = Number;
 }
 
 void UGameFieldElement::SetColorNumber(int32 ColorNumber)

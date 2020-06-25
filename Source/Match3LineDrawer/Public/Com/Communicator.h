@@ -6,7 +6,7 @@
 
 #include "GameFramework/PlayerController.h"
 #include "Structs/Setup/GameSetup.h"
-
+#include "Structs/ElementReturnInformation/ElementReturnInformation.h"
 /**
  * 
  */

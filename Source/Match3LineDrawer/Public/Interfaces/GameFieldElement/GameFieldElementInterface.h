@@ -28,4 +28,5 @@ public:
 	virtual IGameFieldElementInterface* GetUpperElement() const = 0;
 	virtual class UMaterialInterface* GetMaterialInterface() = 0;
 	virtual void SetMaterialInterface(class UMaterialInterface* Material) = 0;
+	virtual FString GetComponentName() const = 0;
 };

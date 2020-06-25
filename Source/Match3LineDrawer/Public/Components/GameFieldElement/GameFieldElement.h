@@ -60,4 +60,8 @@ private:
 
 	// Inherited via IGameFieldElementInterface
 
+
+	// Inherited via IGameFieldElementInterface
+	virtual FString GetComponentName() const override;
+
 };

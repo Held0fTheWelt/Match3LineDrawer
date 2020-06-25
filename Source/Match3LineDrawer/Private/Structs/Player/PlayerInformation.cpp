@@ -2,12 +2,61 @@
 
 #include "Structs/Player/PlayerInformation.h"
 
+#include "Interfaces/GameFieldElement/GameFieldElementInterface.h"
+
 FPlayerInformation::FPlayerInformation()
 {
 	MovesLeft = 10;
 	Heap.Empty();
 	CurrentElement = nullptr;
 	HeapCount = 0;
+}
+
+TArray<IGameFieldElementInterface*>& FPlayerInformation::GetSortedHeap()
+{
+	SortedHeap.Empty();	
+
+	//UE_LOG(LogTemp, Warning, TEXT("Current Heap:"));
+	//UE_LOG(LogTemp, Warning, TEXT("-------------"));
+
+	//for (auto Element : Heap)
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("Element: %s"), *Element->GetComponentName());
+
+	//}
+	//UE_LOG(LogTemp, Warning, TEXT("-------------"));
+
+	while (Heap.Num() > 0)
+	{
+		IGameFieldElementInterface* Current = Heap.Pop();
+
+		if (Current->HasUpperElement())
+		{
+			if (TestUpper(Current, Current->GetUpperElement()) == nullptr)
+			{
+				SortedHeap.Add(Current);
+			}
+			else
+			{
+				Heap.Insert(Current, 0);
+			}
+		}
+		else
+		{
+			SortedHeap.Add(Current);
+		}
+	}
+
+	/*UE_LOG(LogTemp, Warning, TEXT("Sorted Heap:"));
+	UE_LOG(LogTemp, Warning, TEXT("-------------"));
+
+	for (auto Element : SortedHeap)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Element: %s"), *Element->GetComponentName());
+
+	}*/
+
+	return SortedHeap;
 }
 
 IGameFieldElementInterface* FPlayerInformation::Pop()
@@ -60,4 +109,22 @@ IGameFieldElementInterface* FPlayerInformation::GetCurrentInterface()
 bool FPlayerInformation::HasCurrentInterface() const
 {
 	return !(CurrentElement == nullptr);
+}
+
+IGameFieldElementInterface* FPlayerInformation::TestUpper(IGameFieldElementInterface* BaseElement, IGameFieldElementInterface* Element)
+{
+	if (Element->HasUpperElement())
+	{
+		IGameFieldElementInterface* Upper = Element->GetUpperElement();
+		for (auto HeapElement : Heap)
+		{
+			if (HeapElement == Upper)
+			{
+				return Upper;
+			}
+		}
+
+	}
+
+	return nullptr;
 }

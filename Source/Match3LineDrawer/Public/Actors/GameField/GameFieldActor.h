@@ -47,7 +47,7 @@ private:
 	virtual TArray<class IGameFieldElementInterface*> GetGameFieldElements() override;
 
 	// Inherited via IGameFieldInterface
-	virtual UMaterialInterface* GetMaterialInterface(int32 index) const override;
+	virtual UMaterialInterface* GetMaterialInterface(int32 index)  override;
 
-	virtual FElementReturnInformation  GetRandomMaterialInterface() const override;
+	virtual FElementReturnInformation  GetRandomMaterialInterface() override;
 };

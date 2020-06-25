@@ -50,6 +50,11 @@ AGameFieldActor::AGameFieldActor(const FObjectInitializer& ObjectInitializer) : 
 				UGameFieldElement* Element = CreateDefaultSubobject<UGameFieldElement>(FName(*ElementName));
 				Element->SetupAttachment(RootComponent);
 
+				if (j != 0)
+				{
+					int32 count = GameFieldElements.Num() - 1;
+					GameFieldElements[count]->SetUpperElement(Element);
+				}
 				// keep our own reference to the mesh
 				GameFieldElements.Add(Element);
 
@@ -57,13 +62,11 @@ AGameFieldActor::AGameFieldActor(const FObjectInitializer& ObjectInitializer) : 
 				Element->SetRelativeLocation(CalculateElementPosition(i, j));
 				Element->SetStaticMesh(GameFieldMesh);
 
-				if (i != 0)
-				{
-					Element->SetUpperElement(GameFieldElements[GameFieldElements.Num() - SizeY]);
-				}
 			}
 		}
 	}
+
+
 
 	Material = ConstructorStatics.MaterialInstance.Get();
 }
@@ -122,7 +125,7 @@ TArray<class IGameFieldElementInterface*> AGameFieldActor::GetGameFieldElements(
 	return Interfaces;
 }
 
-UMaterialInterface* AGameFieldActor::GetMaterialInterface(int32 index) const
+UMaterialInterface* AGameFieldActor::GetMaterialInterface(int32 index) 
 {
 	if (index >= ColorMaterials.Num())
 	{
@@ -130,12 +133,14 @@ UMaterialInterface* AGameFieldActor::GetMaterialInterface(int32 index) const
 	}
 	else
 	{
+		
+
 		return ColorMaterials[index];
 	}
 
 }
 
-FElementReturnInformation AGameFieldActor::GetRandomMaterialInterface() const
+FElementReturnInformation AGameFieldActor::GetRandomMaterialInterface()
 {
 	int32 ColorIndex = FMath::RandRange(0, ColorMaterials.Num() - 1);
 

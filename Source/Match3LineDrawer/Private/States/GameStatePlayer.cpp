@@ -85,5 +85,5 @@ bool AGameStatePlayer::MoveComplete()
 
 TArray<class IGameFieldElementInterface*>& AGameStatePlayer::GetHeap()
 {
-	return CurrentStatus.Heap;
+	return CurrentStatus.GetSortedHeap();
 }
