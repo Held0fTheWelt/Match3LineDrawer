@@ -16,6 +16,7 @@ IGameFieldElementInterface* FPlayerInformation::Pop()
 	{
 		IGameFieldElementInterface* Value = Heap.Pop(true);		
 		HeapCount--;
+		UE_LOG(LogTemp, Warning, TEXT("Heap popped. Now counts %d elements"), HeapCount);
 		return Value;
 	}
 	else
@@ -28,6 +29,7 @@ void FPlayerInformation::Push(IGameFieldElementInterface* Value)
 {
 	Heap.Push(Value);
 	HeapCount++;
+	UE_LOG(LogTemp, Warning, TEXT("Heap pushed. Now counts %d elements"), HeapCount);
 }
 
 void FPlayerInformation::SetCurrentColorIndex(int32 Index)

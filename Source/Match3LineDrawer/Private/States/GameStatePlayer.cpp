@@ -4,6 +4,7 @@
 #include "GameStatePlayer.h"
 
 #include "Interfaces/GameFieldElement/GameFieldElementInterface.h"
+#include "..\..\Public\States\GameStatePlayer.h"
 
 int32 AGameStatePlayer::GetCurrentColorIndex() const
 {
@@ -65,4 +66,11 @@ bool AGameStatePlayer::IsElementPrevious(IGameFieldElementInterface* NewElement)
 		return true;
 
 	return false;
+}
+
+void AGameStatePlayer::MoveComplete()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Move counted with a count of %d"), CurrentStatus.HeapCount);
+
+
 }

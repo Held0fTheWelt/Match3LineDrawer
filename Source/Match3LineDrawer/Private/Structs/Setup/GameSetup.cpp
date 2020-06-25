@@ -5,4 +5,7 @@
 FGameSetup::FGameSetup()
 {
 	MovesToClear = 10;
+	PointsPerTile = 15;
+
+	Colors = FColorDefinition();
 }

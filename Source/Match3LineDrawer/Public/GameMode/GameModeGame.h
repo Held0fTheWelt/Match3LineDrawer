@@ -21,6 +21,9 @@ protected:
 	
 protected:
 	virtual void BeginPlay() override;
+
+private:
+	class IGameStateInterface* StateInterface;
 };
 
 

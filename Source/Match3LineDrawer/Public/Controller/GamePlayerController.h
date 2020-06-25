@@ -36,4 +36,7 @@ protected:
 
 	// Inherited via IPlayerControllerInterface
 	virtual void ResetPlayerControllerValues() override;
+
+private:
+	class IPlayerStateInterface* StateInterface;
 };

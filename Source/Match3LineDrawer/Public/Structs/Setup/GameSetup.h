@@ -21,5 +21,8 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Colors")
 	FColorDefinition Colors;
+		
+	UPROPERTY(VisibleAnywhere)
+	int32 PointsPerTile;
 };
 

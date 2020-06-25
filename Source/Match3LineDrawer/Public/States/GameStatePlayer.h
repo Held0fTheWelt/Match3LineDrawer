@@ -40,4 +40,7 @@ private:
 
 	// Inherited via IPlayerStateInterface
 	virtual bool IsElementPrevious(IGameFieldElementInterface* NewElement) const override;
+
+	// Inherited via IPlayerStateInterface
+	virtual void MoveComplete() override;
 };

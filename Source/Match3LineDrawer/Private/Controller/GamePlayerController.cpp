@@ -19,6 +19,19 @@ void AGamePlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
 		
+	APlayerState* State = GetPlayerState<APlayerState>();
+
+	if (State == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("PlayerState was null in PlayerController. This shouldn't happen !"));
+	}
+
+	StateInterface = Cast<IPlayerStateInterface>(State);
+
+	if (StateInterface == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Could not cast PlayerState to PlayerStateInterface. This shouldn't happen !"));
+	}
 }
 
 void AGamePlayerController::SetupInputComponent()
@@ -40,6 +53,15 @@ void AGamePlayerController::MousePressed()
 
 void AGamePlayerController::MouseReleased()
 {
+	if (StateInterface == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("PlayerStateInterface was null!"));		
+	}
+	else
+	{
+		StateInterface->MoveComplete();
+	}
+
 	bMouseIsPressed = false;
 
 	Communicator::ResetAllElements(GetWorld());
